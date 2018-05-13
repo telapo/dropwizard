@@ -5,11 +5,20 @@
  */
 package xmlandfiles;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -21,12 +30,12 @@ import org.xml.sax.SAXException;
 
 /**
  * XML, java logging, elements in folder
- * 
- * 
+ *
+ *
  * @author davide
  */
 public class XMLAndFiles {
-
+    
     private static final MyLogger lw = MyLogger.getInstance();
 
     /**
@@ -38,28 +47,29 @@ public class XMLAndFiles {
         readParams(doc);
         ArrayList<String> itemsInFolder = getItemsInFolder("/home/davide");
         itemsInFolder.forEach(System.out::println);
+        fileOperations();
         lw.getLogger().finest("All fine!");
     }
-
+    
     private static Document readXML(String file) {
-
+        
         Document xmlDocument = null;
-
+        
         try {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder docBuilder = dbf.newDocumentBuilder();
-
+            
             xmlDocument = docBuilder.parse(new File(file));
             xmlDocument.getDocumentElement().normalize();
-
+            
             return xmlDocument;
-
+            
         } catch (ParserConfigurationException | SAXException | IOException ex) {
             lw.getLogger().severe("Exception!: " + ex);
         }
         return null;
     }
-
+    
     private static void readParams(Document restrictedParams) {
 
         // get all the tags called "element"
@@ -91,9 +101,9 @@ public class XMLAndFiles {
                 }
             }
         }
-
+        
     }
-
+    
     private static ArrayList<String> getItemsInFolder(String folderPassed) {
         ArrayList<String> list = new ArrayList<>();
         File folder = new File(folderPassed);
@@ -111,13 +121,12 @@ public class XMLAndFiles {
                 }
             }
         };
-        
+
         /*
         create an array of File that contain all the file names containing .log
          */
-
         File[] listOfFiles = folder.listFiles(filter);
-        Arrays.stream(listOfFiles).map(x->x.getName()).map(y->y.substring(0, y.lastIndexOf("."))).forEach(list::add);
+        Arrays.stream(listOfFiles).map(x -> x.getName()).map(y -> y.substring(0, y.lastIndexOf("."))).forEach(list::add);
         /*
         // for each one of them, remove the extention and add it to the local ArrayList
         for (File f : listOfFiles) {
@@ -126,9 +135,27 @@ public class XMLAndFiles {
             String nameElab = name.substring(0, pos);
             materials.add(nameElab);
         }
-*/
+         */
         lw.getLogger().finer("List retrieved");
         return list;
     }
-
+    
+    private static void fileOperations() {
+        Path path = Paths.get("/home/davide/test_text.txt");
+        List<String> data = new ArrayList<>();
+        
+        try (BufferedWriter writer = Files.newBufferedWriter(path, Charset.defaultCharset())) {
+            writer.write("Hello Davide!");
+        } catch (IOException ex) {
+            lw.getLogger().severe("Error while writing to the file! " + ex);
+        }
+        
+        try (BufferedReader reader = Files.newBufferedReader(path)) {
+            reader.lines().forEach(System.out::println);
+        } catch (IOException ex) {
+            lw.getLogger().severe("Exception while reading the file!" + ex);
+        }
+        
+    }
+    
 }
