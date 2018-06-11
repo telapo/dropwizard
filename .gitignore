@@ -20,3 +20,16 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+/Streams/nbproject/private/
+/Streams/build/
+/XMLAndFiles/nbproject/private/
+/XMLAndFiles/build/
+/JDBC/nbproject/private/
+/JDBC/build/
+/maven-examples/nbproject/private/
+/mavenx-examples/nbproject/private/
+/mavenx-examples/dist/
+/mavenx-examples/build/
+/maven-examples/target/
+/Restful/target/
+/swagger-test/target/
