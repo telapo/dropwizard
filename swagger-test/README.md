@@ -15,7 +15,7 @@ To see your applications health enter url `http://localhost:8081/healthcheck`
 What to do
 ---
 
-Check dependencies
+Check dependencies (https://github.com/smoketurner/dropwizard-swagger)
 Compile code jaxrs and copy all the various java files in the project, correct
 their locations
 Run
