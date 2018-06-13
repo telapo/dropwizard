@@ -6,6 +6,7 @@ import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import io.swagger.jaxrs.config.BeanConfig;
+import org.davide.rest.dropwizard2.resources.HelloWorldResource;
 
 public class dropwizard2Application extends Application<dropwizard2Configuration> {
 
@@ -21,7 +22,7 @@ public class dropwizard2Application extends Application<dropwizard2Configuration
     @Override
     public void initialize(final Bootstrap<dropwizard2Configuration> bootstrap) {
         bootstrap.addBundle(new AssetsBundle("/assets/swagger-ui-master/dist", "/swagger-ui", "index.html", "swagger-ui"));
-        bootstrap.addBundle(new AssetsBundle("/assets/swagger-file", "/swagger", "swagger.yaml", "swagger-file"));
+        bootstrap.addBundle(new AssetsBundle("/assets/swagger-file", "/swagger", "swagger.json", "swagger-file"));
     }
 
     @Override
@@ -36,6 +37,12 @@ public class dropwizard2Application extends Application<dropwizard2Configuration
         config.setVersion("1.0.0");
         config.setResourcePackage("io.swagger.sample.resource");
         config.setScan(true);
+
+        final HelloWorldResource resource = new HelloWorldResource(
+                configuration.getTemplate(),
+                configuration.getDefaultName()
+        );
+        environment.jersey().register(resource);
     }
 
 }
