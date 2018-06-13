@@ -1,0 +1,7 @@
+logging:
+  level: INFO
+  loggers:
+    org.davide.rest: DEBUG
+    
+template: Hello, %s!
+defaultName: Stranger
