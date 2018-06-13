@@ -6,7 +6,3 @@ logging:
 template: App running, %s!
 
 defaultName: DefaultName
-
-# the only required property is resourcePackage, for more config options see below
-swagger:
-  resourcePackage: org.davide.rest.swagger.test.api,org.davide.rest.swagger.test.model

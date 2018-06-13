@@ -1,6 +1,6 @@
 package org.davide.rest.swagger.test.api;
 
-import io.swagger.model.*;
+import org.davide.rest.swagger.test.model.*;
 import org.davide.rest.swagger.test.api.AddUserApiService;
 import org.davide.rest.swagger.test.api.factories.AddUserApiServiceFactory;
 

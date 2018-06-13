@@ -3,8 +3,6 @@ package org.davide.rest.swagger.test;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
-import io.federecio.dropwizard.swagger.SwaggerBundle;
-import io.federecio.dropwizard.swagger.SwaggerBundleConfiguration;
 
 /**
  * /jaxrs-server/src/gen/java/io/swagger/model location of User generated class
@@ -24,12 +22,7 @@ public class TestApplication extends Application<TestConfiguration> {
 
     @Override
     public void initialize(final Bootstrap<TestConfiguration> bootstrap) {
-        bootstrap.addBundle(new SwaggerBundle<TestConfiguration>() {
-            @Override
-            protected SwaggerBundleConfiguration getSwaggerBundleConfiguration(TestConfiguration configuration) {
-                return configuration.swaggerBundleConfiguration;
-            }
-        });
+
     }
 
     @Override
